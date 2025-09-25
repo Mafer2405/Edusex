@@ -1,0 +1,860 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>EduSex Joven — Educación Sexual Integral</title>
+
+  <!-- Fuente elegante y legible -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #f9faf9;
+      --card: #ffffff;
+      --primary: #6aa58c; /* verde suave */
+      --accent: #f7b267;  /* coral suave */
+      --muted: #6b7280;
+      --glass: rgba(255,255,255,0.7);
+      --radius: 14px;
+      --shadow: 0 6px 18px rgba(22, 28, 29, 0.07);
+      --max-w: 1100px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg,#fdfcfb 0%,#f5f7fb 100%);
+      color:#111827;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:32px 16px;
+      display:flex;
+      justify-content:center;
+    }
+
+    .container{
+      width:100%;
+      max-width:var(--max-w);
+    }
+
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:20px;
+    }
+    .brand{
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+    .logo{
+      width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--primary),#89c5a9);
+      display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:20px;box-shadow:var(--shadow);
+    }
+    h1{margin:0;font-size:20px}
+    .subtitle{color:var(--muted);font-size:13px}
+
+    nav a{
+      margin-left:14px;color:var(--muted);text-decoration:none;font-size:14px;
+    }
+    nav a:hover{color:var(--primary)}
+
+    main{
+      display:grid;
+      grid-template-columns: 1fr 360px;
+      gap:20px;
+      align-items:start;
+    }
+
+    /* Left column (contenido principal) */
+    .card{
+      background:var(--card);
+      border-radius:var(--radius);
+      padding:20px;
+      box-shadow:var(--shadow);
+    }
+
+    .hero{
+      display:flex;
+      gap:18px;
+      align-items:flex-start;
+    }
+    .hero-left{flex:1}
+    .hero-right{width:220px;text-align:center;}
+    .lead{color:var(--muted);font-size:15px;margin-top:8px}
+    .accent-btn{
+      background:linear-gradient(90deg,var(--primary),#8fc7b1);
+      color:white;border:none;padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:600;box-shadow:0 6px 16px rgba(106,165,140,0.18)
+    }
+
+    section h2{margin-top:0;margin-bottom:10px;font-size:18px}
+    .grid-3{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
+    }
+    .info-card{
+      padding:14px;border-radius:12px;background:linear-gradient(180deg,rgba(245,252,249,0.7),var(--glass));
+      border:1px solid rgba(120,140,128,0.06);
+
+      min-height:110px;
+    }
+    .info-card svg{width:36px;height:36px;opacity:0.9}
+
+    .small{font-size:13px;color:var(--muted)}
+
+    /* Right column (panel lateral) */
+    .side{
+      display:flex;flex-direction:column;gap:18px;
+      position:relative;
+    }
+    .mini{
+      padding:12px;border-radius:12px;background:linear-gradient(180deg,#fff,#fbfffa);box-shadow:var(--shadow)
+    }
+    .calendar{
+      display:grid;gap:6px;
+    }
+    .calendar .week{display:flex;gap:6px}
+    .day{
+      flex:1;padding:8px;border-radius:8px;background:#fff;border:1px solid rgba(11,16,13,0.03);text-align:center;font-size:13px;cursor:pointer;
+    }
+    .day.marked{background:linear-gradient(90deg,var(--accent),#ffdca6);color:#2b2b2b;font-weight:600}
+    .badge{display:inline-block;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg,var(--primary),#8fc7b1);color:white;font-weight:600;font-size:12px}
+
+    /* Quiz / gamificación */
+    .quiz-question{font-weight:600;margin-bottom:10px}
+    .options{display:flex;flex-direction:column;gap:8px}
+    .opt{
+      padding:10px;border-radius:10px;border:1px solid rgba(17,24,39,0.06);cursor:pointer;background:#fff;
+    }
+    .opt.correct{border-color:rgba(34,197,94,0.38);box-shadow:0 6px 14px rgba(34,197,94,0.06)}
+    .opt.wrong{border-color:rgba(239,68,68,0.18);opacity:0.85}
+
+    .points{
+      font-size:14px;font-weight:700;color:var(--muted);
+    }
+
+    footer{margin-top:24px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;align-items:center}
+
+    /* Floating ayuda button */
+    .help-fab{
+      position:fixed;right:22px;bottom:22px;background:linear-gradient(90deg,var(--accent),#ffb686);width:58px;height:58px;border-radius:999px;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;box-shadow:0 10px 30px rgba(247,178,103,0.2);cursor:pointer;z-index:60;
+    }
+    .modal-backdrop{
+      position:fixed;inset:0;background:rgba(6,10,5,0.36);display:none;align-items:center;justify-content:center;z-index:70;
+    }
+    .modal{
+      width:100%;max-width:720px;background:var(--card);border-radius:12px;padding:18px;box-shadow:var(--shadow)
+    }
+    .modal header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+    .close-btn{background:none;border:none;font-size:18px;cursor:pointer;color:var(--muted)}
+
+    /* Responsive */
+    @media (max-width:980px){
+      main{grid-template-columns:1fr}
+      .hero-right{display:none}
+      .side{order:2}
+    }
+
+    /* micro styles */
+    .muted{color:var(--muted)}
+    .pill{display:inline-block;padding:6px 10px;border-radius:999px;border:1px solid rgba(11,16,13,0.04);background:#fff}
+    .center{text-align:center}
+    .tiny{font-size:12px;color:var(--muted)}
+    .link{color:var(--primary);text-decoration:none;font-weight:600}
+    .hidden{display:none}
+  </style>
+</head>
+<body>
+  <div class="container" role="main">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden="true">ES</div>
+        <div>
+          <h1>EduSex Joven</h1>
+          <div class="subtitle">Información confiable y acompañamiento en salud sexual y reproductiva</div>
+        </div>
+      </div>
+
+      <nav aria-label="Navegación principal">
+        <a href="#informacion">Información</a>
+        <a href="#prevencion">Prevención</a>
+        <a href="#calendario">Calendario</a>
+        <a href="#quizzes">Quizzes</a>
+        <a href="#ayuda">Ayuda</a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- columna izquierda -->
+      <div>
+        <!-- Hero -->
+        <section class="card hero" aria-labelledby="bienvenida-title">
+          <div class="hero-left">
+            <h2 id="bienvenida-title">Bienvenida/o a EduSex Joven</h2>
+            <p class="lead">Un espacio seguro, anónimo y basado en educación sexual integral — información clara, herramientas prácticas y apoyo local para prevenir embarazos no planificados y promover una vida sexual saludable.</p>
+            <div style="margin-top:12px;display:flex;gap:10px">
+              <button class="accent-btn" onclick="document.getElementById('quizzes').scrollIntoView({behavior:'smooth'})">Realiza un quiz</button>
+              <button class="pill" onclick="openModal('modal-pregunta')">Enviar pregunta anónima</button>
+            </div>
+            <div style="margin-top:12px" class="tiny"></div>
+          </div>
+
+          <div class="hero-right">
+            <div class="mini center">
+              <div style="font-size:12px;color:var(--muted)">Puntos acumulados</div>
+              <div id="userPoints" style="margin-top:8px;font-size:20px;font-weight:800" class="badge">0</div>
+              <div style="margin-top:8px" class="tiny">Gana puntos con quizzes y buenas prácticas</div>
+            </div>
+
+            <div style="margin-top:12px" class="mini center">
+              <div class="tiny">Medallas</div>
+              <div id="medallas" style="margin-top:8px">
+                <span class="pill">—</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Sección Información -->
+        <section class="card" id="informacion" aria-labelledby="info-title" style="margin-top:18px">
+          <h2 id="info-title">Información esencial</h2>
+          <div class="grid-3" aria-hidden="false">
+            <div class="info-card">
+              <div style="display:flex;gap:12px;align-items:center">
+                <!-- icono -->
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 21s8-4.5 8-10.5S15.313 2 12 6 4 2.5 4 10.5 12 21 12 21z" fill="#6aa58c"/></svg>
+                <div>
+                  <div style="font-weight:700">¿Qué es la ESI?</div>
+                  <div class="small">Educación Sexual Integral: información científica, sin juicios, para tomar decisiones conscientes y responsables.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="info-card">
+              <div style="display:flex;gap:12px;align-items:center">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="#f7b267"/></svg>
+                <div>
+                  <div style="font-weight:700">Mitos y verdades</div>
+                  <div class="small">Preguntas frecuentes sobre anticoncepción, ITS y ciclos menstruales explicadas de forma sencilla.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="info-card">
+              <div style="display:flex;gap:12px;align-items:center">
+                <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="3" fill="#89c5a9"/></svg>
+                <div>
+                  <div style="font-weight:700">Recursos locales</div>
+                  <div class="small">Contactos de centros de salud, líneas telefónicas y servicios de apoyo cerca de ti ().</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <hr style="margin:14px 0;border:none;border-top:1px solid rgba(11,16,13,0.04)">
+
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <article style="flex:1;min-width:240px">
+              <h3 style="margin:0 0 6px 0">Formatos breves</h3>
+              <p class="small">Infografías, vídeos cortos y podcasts con lenguaje claro. Ideal para leer en 2–3 minutos.</p>
+              <div style="margin-top:8px">
+                <a class="link" href="#videos">Ver videos</a> · <a class="link" href="#podcasts">Escuchar podcasts</a>
+              </div>
+            </article>
+
+            <article style="flex:1;min-width:240px">
+              <h3 style="margin:0 0 6px 0">Contenido validado</h3>
+              <p class="small">Los conceptos presentados se basan en evidencia científica y buenas prácticas en salud pública. Para incorporación oficial, enlazar documentos y guías del MINSA y la OMS.</p>
+            </article>
+          </div>
+        </section>
+
+        <!-- Prevención y autocuidado -->
+        <section class="card" id="prevencion" style="margin-top:18px">
+          <h2>Prevención y autocuidado</h2>
+          <p class="small">Consejos prácticos para reducir riesgos y promover bienestar afectivo y sexual.</p>
+
+          <ul style="margin-top:10px;line-height:1.6">
+            <li><strong>Conoce tus opciones:</strong> métodos anticonceptivos, su eficacia y efectos. Consulta a profesionales de salud.</li>
+            <li><strong>Comunicación:</strong> hablar con la pareja sobre consentimiento, límites y protección.</li>
+            <li><strong>Pruebas y revisiones:</strong> realizar exámenes periódicos para ITS cuando sea pertinente.</li>
+            <li><strong>Apoyo emocional:</strong> talleres y asesoría si sientes presión o inseguridad.</li>
+          </ul>
+
+          <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+            <button class="pill" onclick="openModal('modal-calendario')">Abrir calendario</button>
+            <button class="pill" onclick="openModal('modal-ayuda')">Contactos de ayuda</button>
+          </div>
+        </section>
+
+        <!-- Video -->
+        <section class="card" id="videos" style="margin-top:18px">
+          <h2>Videos y podcasts</h2>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div>
+              <div style="font-weight:700">Video destacado</div>
+              <div class="tiny" style="margin-bottom:8px"></div>
+            
+              <div style="position:relative;padding-top:56.25%;background:#000;border-radius:10px;overflow:hidden">
+                <iframe src="https://www.youtube.com/live/n6Vrb9z7Xsg?feature=shared" title="Video educativo (https://www.youtube.com/live/n6Vrb9z7Xsg?feature=shared)"
+                  style="position:absolute;inset:0;border:0;width:100%;height:100%" allowfullscreen></iframe>
+              </div>
+            </div>
+
+        </section>
+
+        <!-- Quizzes -->
+        <section class="card" id="quizzes" style="margin-top:18px">
+          <h2>Mini-quizzes (aprende jugando)</h2>
+          <p class="small">Responde y gana puntos. Tus medallas se guardan en el navegador.</p>
+
+          <div id="quizArea">
+            <!-- Quiz dinámico -->
+            <div id="quizQuestion" class="quiz-question">Cargando...</div>
+            <div id="quizOptions" class="options"></div>
+            <div style="margin-top:10px;display:flex;gap:8px;align-items:center">
+              <button class="pill" id="nextBtn" onclick="nextQuestion()" disabled>Siguiente</button>
+              <div style="margin-left:auto" class="points">Puntos: <span id="quizPts">0</span></div>
+            </div>
+            <div id="quizResult" class="tiny" style="margin-top:10px"></div>
+          </div>
+        </section>
+
+        <!-- Preguntas anónimas -->
+        <section class="card" id="preguntas" style="margin-top:18px">
+          <h2>Enviar pregunta anónima</h2>
+          <p class="small">Envía tu duda sin revelar tu identidad. Las preguntas serán revisadas por un moderador especializado (simulación demo).</p>
+
+          <form id="anonForm" onsubmit="submitAnon(event)">
+            <div style="margin-top:8px">
+              <label for="anonQ" class="tiny">Escribe tu pregunta</label>
+              <textarea id="anonQ" required rows="3" style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(11,16,13,0.06)"></textarea>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <button class="accent-btn" type="submit">Enviar anónimamente</button>
+              <button class="pill" type="button" onclick="openModal('modal-pregunta')">Ver preguntas respondidas</button>
+            </div>
+            <div id="anonMsg" class="tiny" style="margin-top:8px;color:var(--muted)"></div>
+          </form>
+        </section>
+
+        <footer>
+          <div>Creado para uso educativo · Reemplaza contactos por datos locales</div>
+          <div class="tiny">Diseño minimalista y acogedor · EduSex Joven</div>
+        </footer>
+      </div>
+
+      <!-- columna derecha (panel lateral) -->
+      <aside class="side">
+        <div class="mini card" id="calendario" aria-labelledby="calendario-title">
+          <h3 id="calendario-title" style="margin:0 0 8px 0">Calendario de métodos</h3>
+          <div class="tiny">Selecciona un método y marca días. El calendario es interactivo y guarda tus marcas en este equipo.</div>
+
+          <div style="margin-top:10px;display:flex;gap:8px">
+            <select id="methodSelect" style="flex:1;padding:8px;border-radius:8px;border:1px solid rgba(11,16,13,0.06)">
+              <option value="pildora">Píldora (diaria)</option>
+              <option value="inyeccion">Inyección (mensual)</option>
+              <option value="condon">Preservativo (por relación)</option>
+              <option value="implante">Implante (largo plazo)</option>
+            </select>
+            <button class="pill" onclick="generateSchedule()">Aplicar</button>
+          </div>
+
+          <div id="calendarGrid" style="margin-top:12px" class="calendar"></div>
+          <div style="margin-top:8px" class="tiny">Haz clic en un día para marcarlo como “usado”. Los planes para píldora/inyección se calcularán automáticamente.</div>
+        </div>
+
+        <div class="mini card">
+          <h3 style="margin:0 0 8px 0">Chat de demostración</h3>
+          <div class="tiny"></div>
+          <div id="chatBox" style="margin-top:10px;border-radius:10px;padding:10px;border:1px dashed rgba(11,16,13,0.05);height:160px;overflow:auto;background:#fff">
+            <div class="tiny muted">Consejero: Hola, ¿en qué puedo ayudarte hoy? (Demo)</div>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:8px">
+            <input id="chatInp" class="pill" placeholder="Escribe tu mensaje..." style="flex:1;border:1px solid rgba(11,16,13,0.06);" />
+            <button class="accent-btn" onclick="sendChat()">Enviar</button>
+          </div>
+        </div>
+
+        <div class="mini card">
+          <h3 style="margin:0 0 8px 0">Recursos y ayuda</h3>
+          <div class="tiny">Botón de ayuda abajo a la derecha. Aquí algunos contactos (reemplaza por locales):</div>
+          <ul style="margin-top:8px" class="tiny">
+            <li>Centro de Salud Local — Tel: <a class="link" href="tel:Linea 113 Salud">Linea 113 Salud</a></li>
+            <li>Línea de apoyo — Email: <a class="link" href="infosalud@minsa.gob.pe">infosalud@minsa.gob.pe</a></li>
+            <li>Servicios de emergencia — 113</li>
+          </ul>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <!-- Floating ayuda -->
+  <div class="help-fab" title="Ayuda" onclick="openModal('modal-ayuda')" aria-label="Abrir ayuda rápida">?</div>
+
+  <!-- Modales -->
+  <div id="modalBackdrop" class="modal-backdrop" role="dialog" aria-hidden="true" onclick="closeModal(event)">
+    <div class="modal" id="modal-ayuda" style="display:none" onclick="event.stopPropagation()">
+      <header>
+        <strong>Contactos de ayuda</strong>
+        <button class="close-btn" onclick="closeModal()">✕</button>
+      </header>
+      <p class="tiny">Si necesitas atención inmediata, comunícate con servicios de salud locales. Reemplaza estos contactos por información oficial del MINSA y centros cercanos.</p>
+
+      <ul style="margin-top:10px">
+        <li><strong>Centro de Salud Local</strong> — Tel: <a href="tel:Linea 113">Linea 113</a></li>
+        <li><strong>Línea de orientación</strong> — Tel: <a href="tel: Linea 113">Linea 113</a></li>
+        <li><strong>Correo</strong> — <a href="infosalud@minsa.gob.pe">infosalud@minsa.gob.pe</a></li>
+      </ul>
+
+      <div style="margin-top:12px">
+        <button class="accent-btn" onclick="window.open('https://www.minsa.gob.pe', '_blank')">Visitar MINSA</button>
+        <button class="pill" style="margin-left:8px" onclick="closeModal()">Cerrar</button>
+      </div>
+    </div>
+
+    <div class="modal" id="modal-pregunta" style="display:none" onclick="event.stopPropagation()">
+      <header>
+        <strong>Preguntas anónimas enviadas (demo)</strong>
+        <button class="close-btn" onclick="closeModal()">✕</button>
+      </header>
+      <div id="anonList" style="max-height:420px;overflow:auto"></div>
+      <div style="margin-top:12px" class="tiny">Las preguntas aquí están almacenadas localmente para fines de demostración. En una implementación real, se enviarán a un sistema seguro y serán atendidas por profesionales.</div>
+      <div style="margin-top:12px">
+        <button class="pill" onclick="closeModal()">Cerrar</button>
+      </div>
+    </div>
+
+    <div class="modal" id="modal-calendario" style="display:none" onclick="event.stopPropagation()">
+      <header>
+        <strong>Calendario interactivo</strong>
+        <button class="close-btn" onclick="closeModal()">✕</button>
+      </header>
+      <div style="margin-top:6px" class="tiny">Marca el inicio de un método y el calendario te ayudará a visualizar la frecuencia o días recomendados.</div>
+      <div style="margin-top:8px">
+        <label class="tiny">Inicio (fecha)</label>
+        <input id="startDate" type="date" style="padding:8px;border-radius:8px;border:1px solid rgba(11,16,13,0.06)" />
+      </div>
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <select id="modalMethod" style="flex:1;padding:8px;border-radius:8px;border:1px solid rgba(11,16,13,0.06)">
+          <option value="pildora">Píldora (diaria)</option>
+          <option value="inyeccion">Inyección (mensual)</option>
+          <option value="condon">Preservativo</option>
+          <option value="implante">Implante (largo plazo)</option>
+        </select>
+        <button class="pill" onclick="applyModalSchedule()">Aplicar</button>
+      </div>
+      <div style="margin-top:10px" id="modalSchedulePreview"></div>
+      <div style="margin-top:12px"><button class="pill" onclick="closeModal()">Cerrar</button></div>
+    </div>
+  </div>
+
+  <script>
+    /* ============================
+       Datos y utilidades iniciales
+       ============================ */
+    const methodsInfo = {
+      pildora: {name:"Píldora (diaria)", desc:"Tomar una píldora a la misma hora cada día. Alta eficacia con uso correcto."},
+      inyeccion: {name:"Inyección (mensual)", desc:"Aplicación por profesional, suele repetirse cada 1–3 meses según tipo."},
+      condon: {name:"Preservativo", desc:"Protección por relación sexual. Previene ITS y embarazo si se usa correctamente."},
+      implante: {name:"Implante subdérmico", desc:"Dispositivo de larga duración colocado por profesional (varios años)."}
+    };
+
+    /* ======== Modal helpers ======== */
+    const backdrop = document.getElementById('modalBackdrop');
+    function openModal(id){
+      document.querySelectorAll('.modal').forEach(m=>m.style.display='none');
+      const modal = document.getElementById(id);
+      if(!modal) return;
+      modal.style.display = 'block';
+      backdrop.style.display = 'flex';
+      backdrop.setAttribute('aria-hidden','false');
+
+      // if opening preguntas, render list
+      if(id==='modal-pregunta') renderAnonList();
+    }
+    function closeModal(e){
+      if(e && e.target && e.target.id !== 'modalBackdrop') return;
+      document.querySelectorAll('.modal').forEach(m=>m.style.display='none');
+      backdrop.style.display='none';
+      backdrop.setAttribute('aria-hidden','true');
+    }
+
+    /* Prevent backdrop click from closing when inside modal */
+    function closeModalEvent(e){ if(e.target === backdrop) closeModal(); }
+    backdrop.addEventListener('click',closeModalEvent);
+
+    /* ============================
+       Podcasts: reproducir archivo local
+       ============================ */
+    document.getElementById('pod-upload').addEventListener('change', (e)=>{
+      const f = e.target.files[0];
+      if(!f) return;
+      const url = URL.createObjectURL(f);
+      const player = document.getElementById('pod-player');
+      player.src = url;
+      player.play().catch(()=>{/* no autoplay */});
+    });
+
+    /* ============================
+       Calendario lateral (mes actual)
+       ============================ */
+    const calendarGrid = document.getElementById('calendarGrid');
+    const methodSelect = document.getElementById('methodSelect');
+
+    function buildMiniCalendar(){
+      calendarGrid.innerHTML = '';
+      // show simple current month
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = today.getMonth();
+      const first = new Date(year, month, 1);
+      const startDay = first.getDay(); // 0..6 (Domingo..Sab)
+      const daysInMonth = new Date(year, month+1, 0).getDate();
+      // show week labels
+      const weekDays = ['D','L','M','M','J','V','S'];
+      const labels = document.createElement('div');
+      labels.className='week';
+      weekDays.forEach(d=>{
+        const el = document.createElement('div');
+        el.className='day';
+        el.style.background='transparent';
+        el.style.border='0';
+        el.style.fontWeight='700';
+        el.textContent=d;
+        labels.appendChild(el);
+      });
+      calendarGrid.appendChild(labels);
+
+      let dayIndex = 1 - ((startDay+6)%7); // adjust to Lunes-centered if want, but keep simple
+      // Create 6 weeks max
+      for(let w=0; w<6; w++){
+        const week = document.createElement('div');
+        week.className='week';
+        for(let d=0; d<7; d++){
+          const cell = document.createElement('div');
+          cell.className='day';
+          if(dayIndex>0 && dayIndex<=daysInMonth){
+            cell.textContent = dayIndex;
+            cell.dataset.date = `${year}-${String(month+1).padStart(2,'0')}-${String(dayIndex).padStart(2,'0')}`;
+            cell.addEventListener('click', ()=> toggleDayMark(cell));
+            // restore saved marks
+            const saved = getSavedMarks();
+            if(saved.includes(cell.dataset.date)) cell.classList.add('marked');
+          } else {
+            cell.style.visibility='hidden';
+          }
+          week.appendChild(cell);
+          dayIndex++;
+        }
+        calendarGrid.appendChild(week);
+      }
+    }
+    function toggleDayMark(cell){
+      cell.classList.toggle('marked');
+      saveMarks();
+    }
+    function getSavedMarks(){
+      return JSON.parse(localStorage.getItem('es_marks')||'[]');
+    }
+    function saveMarks(){
+      const marks = Array.from(calendarGrid.querySelectorAll('.day.marked')).map(el => el.dataset.date).filter(Boolean);
+      localStorage.setItem('es_marks', JSON.stringify(marks));
+    }
+
+    /* ===== Generar schedule por método (demo) ===== */
+    function generateSchedule(){
+      const m = methodSelect.value;
+      const today = new Date();
+      // Simple demo: mark days in calendar based on method
+      // Clear saved marks
+      localStorage.removeItem('es_marks');
+      // For pill: mark every day this month
+      if(m === 'pildora'){
+        const dates=[];
+        const year = today.getFullYear(), month=today.getMonth();
+        const daysInMonth = new Date(year, month+1, 0).getDate();
+        for(let d=1; d<=daysInMonth; d++){
+          dates.push(`${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`);
+        }
+        localStorage.setItem('es_marks', JSON.stringify(dates));
+      } else if(m === 'inyeccion'){
+        // mark today and next 30 days interval for calendar (demo)
+        const dates=[];
+        for(let i=0;i<12;i++){
+          const dd = new Date(); dd.setDate(dd.getDate() + i*30);
+          dates.push(dateKey(dd));
+        }
+        localStorage.setItem('es_marks', JSON.stringify(dates));
+      } else if(m === 'condon'){
+        // no automatic marks — user marks per relación
+        localStorage.setItem('es_marks', JSON.stringify([]));
+      } else if(m === 'implante'){
+        // mark current month as "protegido" (demo)
+        const dates=[];
+        const year = today.getFullYear(), month=today.getMonth();
+        const daysInMonth = new Date(year, month+1, 0).getDate();
+        for(let d=1; d<=daysInMonth; d++){
+          dates.push(`${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`);
+        }
+        localStorage.setItem('es_marks', JSON.stringify(dates));
+      }
+      buildMiniCalendar();
+    }
+
+    function dateKey(d){
+      return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    }
+
+    /* ========== Quiz dinámico y gamificación ========== */
+    const quizData = [
+      {
+        q: "¿Cuál de estas opciones protege tanto contra embarazos como contra la mayoría de las ITS?",
+        options: ["Anticonceptivo oral (píldora)", "Preservativo (condón)", "Inyección hormonal", "Implante subdérmico"],
+        a: 1
+      },
+      {
+        q: "La eficacia de la píldora depende principalmente de:",
+        options: ["Frecuencia de relaciones", "Tomarla a la misma hora todos los días", "Edad", "Tipo de sangre"],
+        a: 1
+      },
+      {
+        q: "¿Cuál es una conducta de autocuidado sexual responsable?",
+        options: ["Ocultar información a la pareja", "Hacerse pruebas cuando hay riesgo", "Confiar sin protección", "Usar rumores como guía"],
+        a: 1
+      },
+      {
+        q: "Si tienes dudas médicas sobre un método, lo correcto es:",
+        options: ["Buscar información en redes sociales", "Consultar a un profesional de salud", "Preguntar a un amigo sin formación", "Evitar preguntar por vergüenza"],
+        a: 1
+      },
+      {
+        q: "¿Qué es el consentimiento?",
+        options: ["Decir que no a todo", "Un acuerdo libre y explícito entre las personas involucradas", "Aceptar por presión", "Un requisito solo legal"],
+        a: 1
+      }
+    ];
+    let currentQ = 0;
+    let quizPts = Number(localStorage.getItem('es_points')||0);
+    let sessionPts = 0;
+
+    const quizQuestionEl = document.getElementById('quizQuestion');
+    const quizOptionsEl = document.getElementById('quizOptions');
+    const nextBtn = document.getElementById('nextBtn');
+    const quizPtsEl = document.getElementById('quizPts');
+
+    function renderQuiz(){
+      quizPtsEl.textContent = sessionPts;
+      quizQuestionEl.textContent = quizData[currentQ].q;
+      quizOptionsEl.innerHTML = '';
+      quizData[currentQ].options.forEach((opt, idx)=>{
+        const b = document.createElement('button');
+        b.className='opt';
+        b.textContent = opt;
+        b.onclick = ()=> selectOption(b, idx);
+        quizOptionsEl.appendChild(b);
+      });
+      nextBtn.disabled = true;
+    }
+
+    function selectOption(btn, idx){
+      const correct = quizData[currentQ].a === idx;
+      Array.from(quizOptionsEl.children).forEach(ch => ch.disabled = true);
+      if(correct){
+        btn.classList.add('correct');
+        sessionPts += 10;
+        showToast('Respuesta correcta +10 puntos');
+      } else {
+        btn.classList.add('wrong');
+        // marcar la correcta
+        quizOptionsEl.children[quizData[currentQ].a].classList.add('correct');
+        showToast('Respuesta incorrecta');
+      }
+      quizPtsEl.textContent = sessionPts;
+      nextBtn.disabled = false;
+      // cuando lleguemos al final, guardar puntos
+      if(currentQ === quizData.length - 1){
+        nextBtn.textContent = 'Finalizar';
+      } else {
+        nextBtn.textContent = 'Siguiente';
+      }
+    }
+
+    function nextQuestion(){
+      if(currentQ < quizData.length - 1){
+        currentQ++;
+        renderQuiz();
+      } else {
+        // finalizar — guardar puntos en localStorage y otorgar medallas si aplica
+        quizPts += sessionPts;
+        localStorage.setItem('es_points', quizPts);
+        localStorage.setItem('es_medals', JSON.stringify(getMedals(quizPts)));
+        updatePointsUI();
+        showToast(`Quiz completado. Se agregaron ${sessionPts} puntos a tu total.`);
+        sessionPts = 0;
+        currentQ = 0;
+        renderQuiz();
+      }
+    }
+
+    function updatePointsUI(){
+      const pts = Number(localStorage.getItem('es_points')||0);
+      document.getElementById('userPoints').textContent = pts;
+      document.getElementById('medallas').innerHTML = '';
+      const medals = JSON.parse(localStorage.getItem('es_medals')||'[]');
+      if(medals.length === 0){
+        document.getElementById('medallas').innerHTML = '<span class="pill">—</span>';
+      } else {
+        medals.forEach(m=>{
+          const s = document.createElement('span');
+          s.className='pill';
+          s.textContent = m;
+          document.getElementById('medallas').appendChild(s);
+        });
+      }
+    }
+
+    function getMedals(points){
+      const arr = [];
+      if(points >= 50) arr.push('Explorador');
+      if(points >= 120) arr.push('Comunicador');
+      if(points >= 240) arr.push('Embajador');
+      return arr;
+    }
+
+    function showToast(msg){
+      // simple feedback
+      const el = document.createElement('div');
+      el.textContent = msg;
+      el.style.position='fixed';
+      el.style.left='50%';
+      el.style.transform='translateX(-50%)';
+      el.style.bottom='92px';
+      el.style.background='rgba(20,20,20,0.92)';
+      el.style.color='#fff';
+      el.style.padding='10px 14px';
+      el.style.borderRadius='10px';
+      el.style.zIndex=200;
+      el.style.fontSize='13px';
+      document.body.appendChild(el);
+      setTimeout(()=> el.remove(), 2400);
+    }
+
+    /* ========== Preguntas anónimas (local demo) ========== */
+    function submitAnon(e){
+      e.preventDefault();
+      const q = document.getElementById('anonQ').value.trim();
+      if(!q) return;
+      const list = JSON.parse(localStorage.getItem('es_anon')||'[]');
+      const ticket = 'T-'+Math.random().toString(36).slice(2,8).toUpperCase();
+      const item = {ticket, q, status:'pendiente', created:new Date().toISOString()};
+      list.unshift(item);
+      localStorage.setItem('es_anon', JSON.stringify(list));
+      document.getElementById('anonQ').value='';
+      document.getElementById('anonMsg').textContent = `Pregunta enviada. Código: ${ticket}. Será atendida por personal en el servicio (demo).`;
+      renderAnonList();
+    }
+
+    function renderAnonList(){
+      const list = JSON.parse(localStorage.getItem('es_anon')||'[]');
+      const el = document.getElementById('anonList');
+      el.innerHTML = '';
+      if(list.length===0){
+        el.innerHTML = '<div class="tiny muted">No hay preguntas enviadas</div>';
+        return;
+      }
+      list.forEach(i=>{
+        const div = document.createElement('div');
+        div.style.borderBottom = '1px solid rgba(11,16,13,0.03)';
+        div.style.padding = '8px 0';
+        div.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center"><div style="font-weight:700">${i.ticket}</div><div class="tiny">${new Date(i.created).toLocaleString()}</div></div><div class="tiny" style="margin-top:6px">${escapeHtml(i.q)}</div><div class="tiny muted" style="margin-top:6px">Estado: ${i.status}</div>`;
+        el.appendChild(div);
+      });
+    }
+
+    function escapeHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+    /* ========== Chat demo (respuesta automatizada simple) ========== */
+    function sendChat(){
+      const inp = document.getElementById('chatInp');
+      const text = inp.value.trim();
+      if(!text) return;
+      const box = document.getElementById('chatBox');
+      appendChat('Tú', text);
+      inp.value='';
+      // auto-respuesta demo
+      setTimeout(()=>{
+        const resp = automatedResponse(text);
+        appendChat('Consejero', resp);
+      }, 800);
+    }
+    function appendChat(who, text){
+      const box = document.getElementById('chatBox');
+      const d = document.createElement('div');
+      d.style.marginBottom='8px';
+      d.innerHTML = `<div style="font-weight:700;font-size:13px">${who}</div><div class="tiny" style="margin-top:4px">${escapeHtml(text)}</div>`;
+      box.appendChild(d);
+      box.scrollTop = box.scrollHeight;
+    }
+    function automatedResponse(text){
+      text = text.toLowerCase();
+      if(text.includes('embarazo') || text.includes('embarazada')) return 'Si sospechas un embarazo, acude a un centro de salud para confirmar y recibir orientación profesional. ¿Quieres los contactos locales?';
+      if(text.includes('anticonceptiv') || text.includes('píldora') || text.includes('condón')) return 'Puedo darte información general sobre métodos; para indicaciones médicas personalizadas consulta a un profesional de salud.';
+      if(text.includes('urgencia') || text.includes('dolor')) return 'Si es una emergencia, comunícate con los servicios de emergencia (105) o acude a un servicio de urgencias.';
+      return 'Gracias por tu mensaje. Trataremos de ayudarte. Recuerda que este chat es una demostración; para atención real contacta un centro de salud.';
+    }
+
+    /* ========== Modal calendario (preview) ========== */
+    function applyModalSchedule(){
+      const date = document.getElementById('startDate').value;
+      const method = document.getElementById('modalMethod').value;
+      if(!date) {
+        document.getElementById('modalSchedulePreview').innerHTML = '<div class="tiny muted">Selecciona una fecha de inicio.</div>';
+        return;
+      }
+      const start = new Date(date);
+      let preview = '';
+      if(method === 'pildora'){
+        preview = `<div class="tiny">Inicia el ${start.toLocaleDateString()}. Debes tomar la píldora a la misma hora cada día. (Demo)</div>`;
+      } else if(method === 'inyeccion'){
+        preview = `<div class="tiny">Inicia el ${start.toLocaleDateString()}. La siguiente aplicación sería aproximadamente 30 días después. Revisa con profesional el calendario exacto.</div>`;
+      } else if(method === 'condon'){
+        preview = `<div class="tiny">El preservativo se usa en cada relación sexual. No requiere calendario fijo; siempre mantener a la mano.</div>`;
+      } else if(method === 'implante'){
+        preview = `<div class="tiny">El implante se coloca por un profesional y protege por varios años. Programa una cita en tu centro de salud.</div>`;
+      }
+      document.getElementById('modalSchedulePreview').innerHTML = preview;
+    }
+
+    /* ========== Inits ========= */
+    function init(){
+      buildMiniCalendar();
+      // quiz
+      renderQuiz();
+      updatePointsUI();
+      // restore marks
+      // podcast handled by input
+    }
+    init();
+
+    /* helper: expose generateSchedule to console for testing */
+    window.generateSchedule = generateSchedule;
+
+    /* ============================
+       Nota de seguridad para producción
+       ============================
+       - Este proyecto es una demostración: el envio de preguntas, chat en vivo y guardado están
+         implementados localmente (localStorage) para facilitar pruebas.
+       - Para uso real, integrar un backend seguro, autenticación para moderadores, cifrado, y
+         cumplir con la normativa local de protección de datos.
+       - Reemplaza los contactos de ejemplo por las líneas oficiales del MINSA u organismos locales.
+    */
+
+  </script>
+</body>
+</html>
